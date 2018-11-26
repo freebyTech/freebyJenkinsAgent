@@ -89,7 +89,7 @@ podTemplate( label: label,
   //       // this will kill any job which is still in the input step
   //       milestone 2
   //   }
-  // }
+  }
 
   //////////////////////////////////////////////////////////////////////////
 //   node(label)
