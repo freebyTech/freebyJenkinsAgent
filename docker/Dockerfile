@@ -1,4 +1,4 @@
-FROM jenkinsci/jnlp-slave:alpine
+FROM jenkins/jnlp-slave:alpine
 
 USER root
 WORKDIR /
