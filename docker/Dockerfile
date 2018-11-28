@@ -1,4 +1,4 @@
-FROM jenkins/jnlp-slave:alpine
+FROM  docker:18.06
 
 USER root
 WORKDIR /
