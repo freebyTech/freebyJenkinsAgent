@@ -1,4 +1,4 @@
-FROM  docker:18.06
+FROM docker:18.06
 
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
