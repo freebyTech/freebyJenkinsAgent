@@ -41,7 +41,8 @@ podTemplate( label: label,
     stage('Setup Build Settings') 
     {
       echo '--------------------------------------------------'
-      echo "Building version ${version} for branch ${env.BRANCH_NAME}"
+      echo " Building version ${version}"
+      echo " for branch ${env.BRANCH_NAME}"
       echo '--------------------------------------------------'          
       currentBuild.displayName = "# " + version
     }
@@ -72,38 +73,5 @@ podTemplate( label: label,
         }
       }
     }
-
-  //   stage("Get Approval for Deployment")
-  //   {
-  //       // we need a first milestone step so that all jobs entering this stage are tracked an can be aborted if needed
-  //       milestone 1
-      
-  //       timeout(time: 10, unit: 'MINUTES') 
-  //       {
-  //         script 
-  //         {
-  //           env.OVERWRITE_JENKINS = input message: 'Overwrite current build server?', ok: 'Select',
-  //             parameters: [choice(name: 'OVERWRITE_JENKINS', choices: 'No\nYes', description: 'Whether or not to overwrite current jenkins')]
-  //         }
-  //       }
-  //       // this will kill any job which is still in the input step
-  //       milestone 2
-  //   }
   }
-
-  //////////////////////////////////////////////////////////////////////////
-//   node(label)
-//   {
-//     stage("Overwrite Jenkins")
-//     {
-//       // Use guid of known user for registry security
-//         docker.withRegistry(registry, "5eb3385d-b03c-4802-a2b8-7f6df51f3209") 
-//         {
-//           docker.image(tag).withRun('') {
-//             cd ~/freebyjenkins/deploy
-// helm upgrade --install --namespace build freeby-jenkins ./freeby-jenkins
-//         }
-//       }
-//     }
-//   }  
 }

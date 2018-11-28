@@ -1,8 +1,5 @@
 FROM  docker:18.06
 
-USER root
-WORKDIR /
-
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
 # Note: Latest version of kubectl may be found at:
@@ -20,7 +17,5 @@ RUN apk add --no-cache ca-certificates bash git \
     && chmod +x /usr/local/bin/kubectl \
     && wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
-
-USER jenkins
 
 RUN helm init --client-only
