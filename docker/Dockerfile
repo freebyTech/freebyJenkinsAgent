@@ -33,5 +33,4 @@ RUN apk add --no-cache ca-certificates bash git \
     && chmod +x /usr/local/bin/helm
 
 RUN helm init --client-only \
-    && helm plugin install https://github.com/chartmuseum/helm-push \
-    && helm repo add --username ${REGISTRY_USER} --password ${REGISTRY_USER_PASSWORD} freebytech https://${REGISTRY_URL}/chartrepo/freebytech
+    && helm plugin install https://github.com/chartmuseum/helm-push
