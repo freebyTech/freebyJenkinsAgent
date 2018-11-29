@@ -14,8 +14,6 @@
 
 FROM docker:18.06
 
-USER ROOT
-
 # Setup jenkins user which kubernetes plugin seems to use
 ARG user=jenkins
 ARG group=jenkins
