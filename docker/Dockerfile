@@ -14,15 +14,15 @@
 
 FROM docker:18.06
 
-# Setup jenkins user which kubernetes plugin seems to use
+# Setup jenkins user which kubernetes plugin seems to want to use
 ARG user=jenkins
 ARG group=jenkins
 ARG uid=10000
 ARG gid=10000
 
 ENV HOME /home/${user}
-RUN groupadd -g ${gid} ${group}
-RUN useradd -c "Jenkins user" -d $HOME -u ${uid} -g ${gid} -m ${user}
+RUN addgroup --gid ${gid} ${group}
+RUN adduser --home $HOME --uid ${uid} --gid ${gid} ${user}
 
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
