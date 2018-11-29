@@ -14,16 +14,6 @@
 
 FROM docker:18.06
 
-# Setup jenkins user which kubernetes plugin seems to want to use
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=10000
-ARG gid=10000
-
-ENV HOME /home/${user}
-RUN addgroup --gid ${gid} ${group}
-RUN adduser --home $HOME --uid ${uid} --gid ${gid} ${user}
-
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
 # Note: Latest version of kubectl may be found at:
@@ -42,7 +32,4 @@ RUN apk add --no-cache ca-certificates bash git \
     && wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
 
-USER ${user}
-
-RUN helm init --client-only \
-    && helm plugin install https://github.com/chartmuseum/helm-push
+RUN helm plugin install https://github.com/chartmuseum/helm-push
