@@ -23,7 +23,7 @@ ARG gid=10000
 
 ENV HOME /home/${user}
 RUN addgroup --gid ${gid} ${group}
-RUN adduser --home $HOME --uid ${uid} -G ${group} ${user}
+RUN adduser --home $HOME --uid ${uid} -G ${group} --disabled-password ${user}
 
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
