@@ -12,7 +12,18 @@
 #   docker run --env-file env.list 
 #
 
-FROM docker:18.06
+FROM docker/docker:18.06
+LABEL maintainer="freebyTech LLC <jeby@freebytech.com>"
+
+# Setup jenkins user which kubernetes plugin seems to use
+ARG user=jenkins
+ARG group=jenkins
+ARG uid=10000
+ARG gid=10000
+
+ENV HOME /home/${user}
+RUN groupadd -g ${gid} ${group}
+RUN useradd -c "Jenkins user" -d $HOME -u ${uid} -g ${gid} -m ${user}
 
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
@@ -32,4 +43,8 @@ RUN apk add --no-cache ca-certificates bash git \
     && wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
 
-RUN helm plugin install https://github.com/chartmuseum/helm-push
+USER jenkins
+
+# Init helm to create default configuration without tiller installation and also install the heml push plugin.
+RUN helm init --client-only \
+    && helm plugin install https://github.com/chartmuseum/helm-push
