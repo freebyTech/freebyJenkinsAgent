@@ -12,7 +12,7 @@
 #   docker run --env-file env.list 
 #
 
-FROM docker/docker:18.06
+FROM docker:18.06
 LABEL maintainer="freebyTech LLC <jeby@freebytech.com>"
 
 # Setup jenkins user which kubernetes plugin seems to use
