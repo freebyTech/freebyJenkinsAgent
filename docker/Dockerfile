@@ -18,14 +18,18 @@ LABEL maintainer="freebyTech LLC <jeby@freebytech.com>"
 # Setup jenkins user which kubernetes plugin seems to use
 ARG user=jenkins
 ARG group=jenkins
+ARG docker_group=docker
 ARG uid=10000
 ARG gid=10000
 
 ENV HOME /home/${user}
 RUN addgroup --gid ${gid} ${group} \
-    && adduser --home $HOME --uid ${uid} -G ${group} --disabled-password ${user} \
-    && cat /etc/group \
-    && adduser ${user} adm
+    && adduser --home $HOME --uid ${uid} -G ${group} --disabled-password ${user}
+
+# Need to setup the same docker group in the container that defined in the host. 
+RUN DOCKER_GID=$(stat -c '%g' /var/run/docker.sock) \
+    && addgroup -gid ${DOCKER_GID} ${docker_group} \
+    && adduser ${user} ${docker_group}
 
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
