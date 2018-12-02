@@ -15,22 +15,6 @@
 FROM docker:18.06
 LABEL maintainer="freebyTech LLC <jeby@freebytech.com>"
 
-# Setup jenkins user which kubernetes plugin seems to use
-ARG user=jenkins
-ARG group=jenkins
-ARG docker_group=docker
-ARG uid=10000
-ARG gid=10000
-
-ENV HOME /home/${user}
-RUN addgroup --gid ${gid} ${group} \
-    && adduser --home $HOME --uid ${uid} -G ${group} --disabled-password ${user}
-
-# Need to setup the same docker group in the container that defined in the host. 
-RUN DOCKER_GID=$(stat -c '%g' /var/run/docker.sock) \
-    && addgroup -gid ${DOCKER_GID} ${docker_group} \
-    && adduser ${user} ${docker_group}
-
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
 # Note: Latest version of kubectl may be found at:
@@ -48,9 +32,3 @@ RUN apk add --no-cache ca-certificates bash git \
     && chmod +x /usr/local/bin/kubectl \
     && wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
     && chmod +x /usr/local/bin/helm
-
-USER jenkins
-
-# Init helm to create default configuration without tiller installation and also install the heml push plugin.
-RUN helm init --client-only \
-    && helm plugin install https://github.com/chartmuseum/helm-push
