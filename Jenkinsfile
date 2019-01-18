@@ -4,7 +4,7 @@ def version_prefix = '1.0'
 def version=''
 def tag=''
 def registry = ''
-def repository = 'freebytech'    
+def repository = 'freebytech-pub'    
 def image = 'jenkins-agent'
 def docker_build_arguments=''
 
