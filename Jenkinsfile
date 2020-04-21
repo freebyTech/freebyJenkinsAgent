@@ -17,19 +17,21 @@ if('index.docker.io'.equalsIgnoreCase(env.REGISTRY_URL))
 {
   echo 'Publishing to standard docker registry.'
   tag = "${repository}/${image}:${version}"
+  agentTag = "freebytech-pub/${env.AGENT_IMAGE}"
   regsitry = ''
 }
 else 
 {
   echo "Publishing to registry ${env.REGISTRY_URL}"
   tag = "${env.REGISTRY_URL}/${repository}/${image}:${version}"
+  agentTag = "${env.REGISTRY_URL}/freebytech-pub/${env.AGENT_IMAGE}"
   registry = "https://${env.REGISTRY_URL}"
 }  
      
 podTemplate( label: label,
   containers: 
   [
-    containerTemplate(name: 'docker', image: 'docker:18.06', ttyEnabled: true, command: 'cat')
+    containerTemplate(name: 'freeby-agent', image: agentTag, ttyEnabled: true, command: 'cat')
   ], 
   volumes: 
   [
@@ -49,7 +51,7 @@ podTemplate( label: label,
     
     stage('Build Image and Publish') 
     {
-      container('docker') 
+      container('freeby-agent') 
       {
         checkout scm
 
