@@ -2,7 +2,7 @@
 
 import com.freebyTech.BuildInfo
 
-String versionPrefix = '1.0'
+String versionPrefix = '1.1'
 String repository = 'freebytech-pub'    
 String imageName = 'jenkins-agent'
 String dockerBuildArguments = ''
