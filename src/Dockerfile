@@ -12,20 +12,20 @@
 #   docker run --env-file env.list 
 #
 
-FROM docker:18.06
+FROM docker:20.10
 LABEL maintainer="freebyTech LLC <jeby@freebytech.com>"
 
 # Version of the kubernetes server as found by running
 # "kubectl version" on your cluster
 # Note: Latest version of kubectl may be found at:
 # https://aur.archlinux.org/packages/kubectl-bin/
-ENV KUBE_LATEST_VERSION="v1.15.10"
+ENV KUBE_LATEST_VERSION="v1.23.8"
 
 # Version of the Helm Client and Tiller as found by running
 # "helm version" on your cluster
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="v3.1.2"
+ENV HELM_VERSION="v3.9.0"
 
 RUN apk add --no-cache ca-certificates bash git \
   && wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl \
