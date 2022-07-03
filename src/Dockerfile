@@ -12,7 +12,7 @@
 #   docker run --env-file env.list 
 #
 
-FROM docker:19.03
+FROM docker:18.09
 LABEL maintainer="freebyTech LLC <jeby@freebytech.com>"
 
 # Version of the kubernetes server as found by running
