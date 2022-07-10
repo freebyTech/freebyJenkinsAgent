@@ -25,7 +25,8 @@ ENV KUBE_LATEST_VERSION="v1.23.8"
 # "helm version" on your cluster
 # Note: Latest version of helm may be found at:
 # https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="v3.9.0"
+# Still need the experimental OCI support, as haven't upgraded yet.
+ENV HELM_VERSION="v3.6.3"
 
 RUN apk add --no-cache ca-certificates bash git \
   && wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl \
